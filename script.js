@@ -33,12 +33,14 @@ window.addEventListener("load", function(){
 
     let form = document.querySelector("form");
     form.addEventListener("submit", function(event){
+        event.preventDefault();
         let pilotNameInput = document.querySelector("input[name=pilotName]");
         let copilotNameInput = document.querySelector("input[name=copilotName]");
         let fuelLevelInput = document.querySelector("input[name=fuelLevel]");
         let cargoMassInput = document.querySelector("input[name=cargoMass]");
         let faultyItemsButton = document.getElementById("faultyItems");
         let launchStatusButton = document.getElementById("launchStatus");
+        let fuelStatusButton = document.getElementById("fuelStatus");
         let cargoStatusButton = document.getElementById("cargoStatus");
        
         if(pilotNameInput.value === "" || copilotNameInput.value === "" || fuelLevelInput.value === "" || cargoMassInput.value === "") {
@@ -47,7 +49,7 @@ window.addEventListener("load", function(){
         }
         if(isNaN(pilotNameInput.value) === false || isNaN(copilotNameInput.value) === false || isNaN(fuelLevelInput.value) === true || isNaN(cargoMassInput.value) === true) {
            alert("Please check the values!");
-           event.preventDefault();
+           
         }
         let pilot = document.getElementById("pilotStatus");
         pilot.innerHTML = `${pilotNameInput.value} is ready for launch!`;
@@ -58,18 +60,21 @@ window.addEventListener("load", function(){
             faultyItemsButton.style.visibility = "visible";
             launchStatusButton.innerHTML = "Shuttle not ready for launch";
             launchStatusButton.style.color = "red";
-            fuelLevelInput.innerHTML = "There is not enough fuel for the journey!!!" 
+            fuelStatusButton.innerHTML = "There is not enough fuel for the journey!!!" 
+            event.preventDefault();
         }
         if(cargoMassInput.value > 10000) {
             faultyItemsButton.style.visibility = "visible";
             launchStatusButton.innerHTML = "Shuttle not ready for launch";
             launchStatusButton.style.color = "red";
             cargoStatusButton.innerHTML =  "There is too much mass for the shuttle to take off!!!";
+            event.preventDefault();
         }
         if(isNaN(pilotNameInput.value) === true && isNaN(copilotNameInput.value) === true && fuelLevelInput.value > 10000 && cargoMassInput.value < 10000 && cargoMassInput.value >0) {
             faultyItemsButton.style.visibility = "visible";
             launchStatusButton.innerHTML = "Shuttle is ready for launch"
             launchStatusButton.style.color = "green";
+            event.preventDefault();
         }
         
           
